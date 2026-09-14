@@ -3,4 +3,4 @@ class Ahorcado:
         self.palabra_secreta = palabra
 
     def palabra_enmascarada(self) -> str:
-        return "_" * len(self.palabra_secreta)
+        return "_ " * len(self.palabra_secreta)
