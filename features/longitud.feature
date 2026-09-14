@@ -8,5 +8,5 @@ Característica: Ver longitud de la palabra
 @CA-01
   Escenario: Inicio del juego con palabra enmascarada
     Dado una partida con la palabra "GATO"
-    Entonces se ve la palabra "____"
+    Entonces se ve la palabra "_ _ _ _ "
 
