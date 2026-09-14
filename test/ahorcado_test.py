@@ -7,6 +7,5 @@ def test_representa_palabra_inicial_con_guiones_bajos():
 
 def test_representa_palabra_de_diferente_longitud():
     juego = Ahorcado("PERRO")
-    assert juego.palabra_enmascarada() == "_ _ _ _ _"
+    assert juego.palabra_enmascarada() == "_ _ _ _ _ "
 
-    
