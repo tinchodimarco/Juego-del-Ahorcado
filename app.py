@@ -1,22 +1,27 @@
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template
 from src.ahorcado import Ahorcado
 
 app = Flask(__name__)
+juego_actual = None 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
-    word = request.args.get("word", "GATO")
-    juego = Ahorcado(word)
-    
-    html = """
-    <!DOCTYPE html>
-    <html>
-    <body>
-        <div data-testid="word">{{ enmascarada }}</div>
-    </body>
-    </html>
-    """
-    return render_template_string(html, enmascarada=juego.palabra_enmascarada())
+    global juego_actual
+
+    # GET: inicio de partida
+    palabra_inicial = request.args.get("word")
+    if palabra_inicial:
+        juego_actual = Ahorcado(palabra_inicial)
+
+    # POST: adivinar letra
+    if request.method == "POST" and juego_actual:
+        letra_ingresada = request.form.get("letra")
+        if letra_ingresada:
+            juego_actual.adivinar_letra(letra_ingresada.upper())
+
+    # Renderizar vista
+    palabra_a_mostrar = juego_actual.palabra_enmascarada() if juego_actual else ""
+    return render_template("index.html", palabra=palabra_a_mostrar)
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(debug=True)

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Juego del Ahorcado</title>
+</head>
+
+<body>
+  <!-- Acá Flask inyecta la palabra enmascarada -->
+  <h1 data-testid="word">{{ palabra }}</h1>
+
+  <!-- Formulario para enviar la letra por POST -->
+  <form method="POST" action="/">
+    <input type="text" name="letra" data-testid="letra-input" maxlength="1" autofocus>
+    <button type="submit" data-testid="adivinar-btn">Adivinar</button>
+  </form>
+</body>
+
+</html>
