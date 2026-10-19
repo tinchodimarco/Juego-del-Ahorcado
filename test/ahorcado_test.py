@@ -13,3 +13,8 @@ def test_adivinar_letra_correcta_actualiza_la_palabra_enmascarada():
     juego = Ahorcado("GATO")
     juego.adivinar_letra("A")  # Inventamos este método
     assert juego.palabra_enmascarada() == "_ A _ _"
+
+def test_adivinar_letra_repetida_en_otra_palabra():
+    juego = Ahorcado("PERRO")
+    juego.adivinar_letra("R")
+    assert juego.palabra_enmascarada() == "_ _ R R _"
