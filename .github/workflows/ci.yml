@@ -2,13 +2,12 @@ name: CI/CD Pipeline - Ahorcado
 
 on:
   push:
-    branches: [ "**" ]
+    branches: ['**']
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   build-and-test:
-  
     runs-on: ubuntu-latest
 
     steps:
@@ -31,7 +30,7 @@ jobs:
 
       # 4. Instalar navegadores para Playwright (necesario para los AT)
       - name: Instalar navegador Chromium para Playwright
-        run: playwright install chromium
+        run: playwright install --with-deps chromium
 
       # 5. Ejecutar Unit Tests y medir Cobertura (Exigiendo el umbral del 90% en el dominio)
       # Nota: Ajustá --cov=src según dónde tengas tu lógica de dominio
