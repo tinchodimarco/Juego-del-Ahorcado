@@ -10,3 +10,5 @@ Característica: Ver longitud de la palabra
     Dado una partida con la palabra "GATO"
     Entonces se ve la palabra "_ _ _ _"
 
+
+

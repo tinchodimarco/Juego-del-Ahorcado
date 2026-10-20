@@ -18,3 +18,8 @@ def test_adivinar_letra_repetida_en_otra_palabra():
     juego = Ahorcado("PERRO")
     juego.adivinar_letra("R")
     assert juego.palabra_enmascarada() == "_ _ R R _"
+
+def test_letra_incorrecta_descuenta_intento():
+    juego = Ahorcado("GATO", intentos=6)
+    juego.adivinar_letra("Z")
+    assert juego.intentos == 5
