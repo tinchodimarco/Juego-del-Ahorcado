@@ -5,12 +5,14 @@ class Ahorcado:
         self.intentos = intentos
         # Conjunto (set) para guardar las letras que el jugador arriesga
         self.letras_adivinadas = set() 
+        self.letras_incorrectas = set()
 
     def adivinar_letra(self, letra: str):
         self.letras_adivinadas.add(letra)
         # Si la letra ingresada NO está en la palabra secreta, descontamos un intento
         if letra not in self.palabra_secreta:
             self.intentos -= 1
+            self.letras_incorrectas.add(letra)
 
     def palabra_enmascarada(self) -> str:
         # Recorremos la palabra secreta: mostramos la letra si fue adivinada, sino un "_"
@@ -19,3 +21,5 @@ class Ahorcado:
             for letra in self.palabra_secreta
         ]
         return " ".join(caracteres)
+
+    

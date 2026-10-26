@@ -23,3 +23,8 @@ def test_letra_incorrecta_descuenta_intento():
     juego = Ahorcado("GATO", intentos=6)
     juego.adivinar_letra("Z")
     assert juego.intentos == 5
+
+def test_letra_incorrecta_se_agrega_a_conjunto_de_incorrectas():
+    juego = Ahorcado("GATO")
+    juego.adivinar_letra("Z")
+    assert "Z" in juego.letras_incorrectas
