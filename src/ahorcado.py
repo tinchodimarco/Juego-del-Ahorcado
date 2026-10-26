@@ -21,5 +21,8 @@ class Ahorcado:
             for letra in self.palabra_secreta
         ]
         return " ".join(caracteres)
-
+    
+    def esta_ganado(self) -> bool:
+        # Retorna True si todas las letras de la palabra secreta fueron adivinadas
+        return set(self.palabra_secreta).issubset(self.letras_adivinadas)
     

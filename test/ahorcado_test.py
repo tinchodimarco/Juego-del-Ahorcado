@@ -28,3 +28,10 @@ def test_letra_incorrecta_se_agrega_a_conjunto_de_incorrectas():
     juego = Ahorcado("GATO")
     juego.adivinar_letra("Z")
     assert "Z" in juego.letras_incorrectas
+
+def test_juego_esta_ganado_cuando_se_adivinan_todas_las_letras():
+    juego = Ahorcado("SOL")
+    juego.adivinar_letra("S")
+    juego.adivinar_letra("O")
+    juego.adivinar_letra("L")
+    assert juego.esta_ganado() is True
