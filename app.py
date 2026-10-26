@@ -22,8 +22,14 @@ def index():
     # Renderizar vista pasando la palabra enmascarada y los intentos restantes
     palabra_a_mostrar = juego_actual.palabra_enmascarada() if juego_actual else ""
     intentos_a_mostrar = juego_actual.intentos if juego_actual else 6
+    letras_erradas = ", ".join(sorted(juego_actual.letras_incorrectas)) if juego_actual else ""
 
-    return render_template("index.html", palabra=palabra_a_mostrar, intentos=intentos_a_mostrar)
+    return render_template(
+        "index.html",
+        palabra=palabra_a_mostrar,
+        intentos=intentos_a_mostrar,
+        letras_incorrectas=letras_erradas
+        )
 
 if __name__ == "__main__":
     app.run(debug=True)
