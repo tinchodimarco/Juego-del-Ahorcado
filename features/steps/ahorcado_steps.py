@@ -35,3 +35,10 @@ def step_verificar_intentos(context, intentos_esperados):
 def step_verificar_letras_incorrectas(context, letra):
     elemento = context.page.get_by_test_id("letras-incorrectas")
     expect(elemento).to_contain_text(letra)
+
+    # --- Paso para HU-05 (Ganar partida)
+
+    @then('se muestra el mensaje "{mensaje_esperado}"')
+def step_verificar_mensaje_estado(context, mensaje_esperado):
+    elemento = context.page.get_by_test_id("mensaje-estado")
+    expect(elemento).to_have_text(mensaje_esperado)
