@@ -28,3 +28,10 @@ def step_iniciar_partida_con_intentos(context, palabra, intentos):
 def step_verificar_intentos(context, intentos_esperados):
     elemento = context.page.get_by_test_id("intentos")
     expect(elemento).to_have_text(intentos_esperados)
+
+# --- Paso para HU-04 (Registrar letras incorrectas)
+
+@then('se muestra "{letra}" en las letras incorrectas')
+def step_verificar_letras_incorrectas(context, letra):
+    elemento = context.page.get_by_test_id("letras-incorrectas")
+    expect(elemento).to_contain_text(letra)
