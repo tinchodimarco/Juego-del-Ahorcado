@@ -27,6 +27,8 @@ def index():
     mensaje = ""
     if juego_actual and juego_actual.esta_ganado():
         mensaje = "¡Ganaste!"
+    elif juego_actual and juego_actual.esta_perdido():
+     mensaje = "¡Perdiste!"
 
     return render_template(
         "index.html",
