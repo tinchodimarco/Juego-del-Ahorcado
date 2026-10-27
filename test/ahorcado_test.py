@@ -35,3 +35,9 @@ def test_juego_esta_ganado_cuando_se_adivinan_todas_las_letras():
     juego.adivinar_letra("O")
     juego.adivinar_letra("L")
     assert juego.esta_ganado() is True
+
+def test_juego_esta_perdido_cuando_se_agotan_los_intentos():
+    juego = Ahorcado("SOL", intentos=1)
+    assert juego.esta_perdido() is False
+    juego.adivinar_letra("X")  # Falla y gasta el último intento
+    assert juego.esta_perdido() is True
