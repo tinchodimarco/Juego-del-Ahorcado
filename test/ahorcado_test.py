@@ -1,5 +1,7 @@
 import pytest
 from src.ahorcado import Ahorcado
+from flask import redirect, url_for
+
 
 def test_representa_palabra_inicial_con_guiones_bajos():
     juego = Ahorcado("GATO")
@@ -41,3 +43,4 @@ def test_juego_esta_perdido_cuando_se_agotan_los_intentos():
     assert juego.esta_perdido() is False
     juego.adivinar_letra("X")  # Falla y gasta el último intento
     assert juego.esta_perdido() is True
+
