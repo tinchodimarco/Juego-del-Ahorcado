@@ -36,3 +36,8 @@ class Ahorcado:
         juego.adivinar_letra("Z")
         assert juego.esta_perdido() is True
     
+    def reiniciar(self, nueva_palabra: str, intentos: int = 6):
+        self.palabra_secreta = nueva_palabra
+        self.intentos = intentos
+        self.letras_adivinadas.clear()
+        self.letras_incorrectas.clear()
