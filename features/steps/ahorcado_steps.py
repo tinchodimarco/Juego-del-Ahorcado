@@ -42,3 +42,29 @@ def step_verificar_letras_incorrectas(context, letra):
 def step_verificar_mensaje_estado(context, mensaje_esperado):
     elemento = context.page.get_by_test_id("mensaje-estado")
     expect(elemento).to_have_text(mensaje_esperado)
+
+from playwright.sync_api import expect
+
+@given(u'que inicio una nueva partida con la palabra "{palabra}"')
+def step_iniciar_partida_con_palabra(context, palabra):
+    context.page.goto(f"http://127.0.0.1:5000/?palabra={palabra}")
+
+@given(u'agoto todos mis intentos fallando las letras')
+def step_agotar_intentos(context):
+    letras_incorrectas = ["X", "Y", "Z", "W", "V", "K"]
+    for letra in letras_incorrectas:
+        context.page.fill("input[name='letra']", letra)
+        context.page.click("button[type='submit']")
+
+@given(u'adivino correctamente todas las letras')
+def step_adivinar_todas_las_letras(context):
+    # Asumiendo que la palabra del escenario es "SOL"
+    letras = ["S", "O", "L"]
+    for letra in letras:
+        context.page.fill("input[name='letra']", letra)
+        context.page.click("button[type='submit']")
+
+@then(u'veo el botón para reiniciar la partida')
+def step_ver_boton_reiniciar(context):
+    boton = context.page.locator("button.btn-reiniciar")
+    expect(boton).to_be_visible()

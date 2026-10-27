@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for, redirect
 from src.ahorcado import Ahorcado
 
 app = Flask(__name__)
@@ -38,5 +38,14 @@ def index():
         mensaje = mensaje
         )
 
+def reiniciar():
+    global juego_actual
+    # Si querés que elijo otra palabra o reinicie con la misma/nueva:
+    if juego_actual:
+        # Podés conservar la misma palabra secreta o generar una nueva
+        palabra = juego_actual.palabra_secreta
+        juego_actual = Ahorcado(palabra)
+    return redirect(url_for('index'))
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True)    
