@@ -29,10 +29,5 @@ class Ahorcado:
     def esta_perdido(self) -> bool:
      return self.intentos <= 0
 
-    def test_juego_esta_perdido_cuando_se_agotan_los_intentos():
-        juego = Ahorcado("SOL", intentos=3)
-        juego.adivinar_letra("X")
-        juego.adivinar_letra("Y")
-        juego.adivinar_letra("Z")
-        assert juego.esta_perdido() is True
+  
     
