@@ -44,3 +44,16 @@ def test_juego_esta_perdido_cuando_se_agotan_los_intentos():
     juego.adivinar_letra("X")  # Falla y gasta el último intento
     assert juego.esta_perdido() is True
 
+def test_reiniciar_resetea_intentos_y_letras():
+    
+    juego = Ahorcado("SOL")
+    juego.adivinar_letra("X")  # Falla un intento
+    juego.adivinar_letra("S")  # Aciierta
+    
+    
+    juego.reiniciar("LUNA")
+    
+    assert juego.palabra_secreta == "LUNA"
+    assert juego.intentos == 6
+    assert len(juego.letras_adivinadas) == 0
+    assert len(juego.letras_incorrectas) == 0
