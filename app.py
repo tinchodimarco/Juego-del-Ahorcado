@@ -11,7 +11,11 @@ def index():
     # GET: inicio de partida
     palabra_inicial = request.args.get("word")
     if palabra_inicial:
-        juego_actual = Ahorcado(palabra_inicial)
+        intentos_iniciales = request.args.get("intentos")
+        if intentos_iniciales:
+            juego_actual = Ahorcado(palabra_inicial, intentos=int(intentos_iniciales))
+        else:
+            juego_actual = Ahorcado(palabra_inicial)
 
     # POST: adivinar letra
     if request.method == "POST" and juego_actual:

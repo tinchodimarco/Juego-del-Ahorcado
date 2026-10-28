@@ -22,7 +22,7 @@ def step_ingresar_letra(context, letra):
 
 @given('una partida con la palabra "{palabra}" y {intentos:d} intentos')
 def step_iniciar_partida_con_intentos(context, palabra, intentos):
-    context.page.goto(f"http://127.0.0.1:5000/?word={palabra}")
+    context.page.goto(f"http://127.0.0.1:5000/?word={palabra}&intentos={intentos}")
 
 @then('el contador de intentos muestra "{intentos_esperados}"')
 def step_verificar_intentos(context, intentos_esperados):
@@ -70,9 +70,15 @@ def step_ver_boton_reiniciar(context):
     expect(boton).to_be_visible()
 
 @then(u'el contador de intentos se mantiene en "{intentos}"')
-def step_impl(context, intentos):
-    assert str(context.juego.intentos) == intentos
+def step_verificar_intentos_mantenidos(context, intentos):
+    elemento = context.page.get_by_test_id("intentos")
+    expect(elemento).to_have_text(intentos)
 
 @then(u'la letra "{letra}" no se agrega a las letras incorrectas')
-def step_impl(context, letra):
-    assert letra not in context.juego.letras_incorrectas
+def step_verificar_letra_no_en_incorrectas(context, letra):
+    elemento = context.page.get_by_test_id("letras-incorrectas")
+    # Verificamos que la letra no esté contenida en el bloque de letras incorrectas
+    # O si el elemento está vacío o no contiene la letra, aseguramos que no aparezca
+    if elemento.count() > 0:
+        texto = elemento.inner_text()
+        assert letra not in texto
