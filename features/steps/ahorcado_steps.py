@@ -82,3 +82,18 @@ def step_verificar_letra_no_en_incorrectas(context, letra):
     if elemento.count() > 0:
         texto = elemento.inner_text()
         assert letra not in texto
+
+@given('que abro la página principal del juego sin parámetros')
+def step_impl(context):
+    context.page.goto("http://127.0.0.1:5000/")
+
+@when('visualizo el tablero')
+def step_impl(context):
+    # Esperamos a que cargue el cuerpo de la página
+    context.page.wait_for_selector("body")
+
+@then('veo la palabra enmascarada con una longitud mayor a cero')
+def step_impl(context):
+    # Obtenemos el texto visible en la página con Playwright y validamos que contenga guiones bajos
+    contenido = context.page.text_content("body")
+    assert "_" in contenido
