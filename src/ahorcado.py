@@ -27,7 +27,7 @@ class Ahorcado:
         return set(self.palabra_secreta).issubset(self.letras_adivinadas)
 
     def esta_perdido(self) -> bool:
-     return self.intentos <= 0
+        return self.intentos <= 0
     
     def reiniciar(self, nueva_palabra: str, intentos: int = 6):
         self.palabra_secreta = nueva_palabra
