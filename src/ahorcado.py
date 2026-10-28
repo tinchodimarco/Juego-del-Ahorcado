@@ -20,9 +20,16 @@ class Ahorcado:
         if self.esta_ganado() or self.esta_perdido():
             return
 
-        self.letras_adivinadas.add(letra)
-        # Si la letra ingresada NO está en la palabra secreta, descontamos un intento
-        if letra not in self.palabra_secreta:
+        letra = letra.strip().upper()
+        if len(letra) != 1 or not letra.isalpha():
+            return
+
+        if letra in self.letras_adivinadas or letra in self.letras_incorrectas:
+            return
+
+        if letra in self.palabra_secreta:
+            self.letras_adivinadas.add(letra)
+        else:
             self.intentos -= 1
             self.letras_incorrectas.add(letra)
 
@@ -42,9 +49,8 @@ class Ahorcado:
         return self.intentos <= 0
     
     def reiniciar(self, nueva_palabra: str, intentos: int = 6):
-        self.palabra_secreta = nueva_palabra
+        self.palabra_secreta = nueva_palabra.upper()
         self.intentos = intentos
         self.letras_adivinadas.clear()
         self.letras_incorrectas.clear()
-
 

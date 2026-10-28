@@ -1,4 +1,5 @@
 import threading
+from urllib.request import urlopen
 from wsgiref import simple_server
 from playwright.sync_api import sync_playwright
 from app import app # Importa la app de tu app.py
@@ -21,8 +22,9 @@ def after_all(context):
     context.thread.join()
 
 def before_scenario(context, scenario):
-    # Cada escenario arranca con una pestaña en blanco
     context.page = context.browser.new_page()
+    with urlopen("http://127.0.0.1:5000/reset"):
+        pass
 
 def after_scenario(context, scenario):
     # Se cierra la pestaña al final (falle o pase el test)

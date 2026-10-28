@@ -21,7 +21,9 @@
 
   <!-- Formulario para enviar la letra por POST -->
   <form method="POST" action="/">
-    <input type="text" name="letra" data-testid="letra-input" maxlength="1" autofocus>
+    <label for="letra">Ingresá una letra:</label>
+    <input type="text" id="letra" name="letra" data-testid="letra-input"
+      maxlength="1" pattern="[A-Za-zÑñ]" required autocomplete="off" autofocus>
     <button type="submit" data-testid="adivinar-btn">Adivinar</button>
   </form>
 
@@ -34,5 +36,4 @@
 </body>
 
 </html>
-
 
