@@ -8,6 +8,10 @@ class Ahorcado:
         self.letras_incorrectas = set()
 
     def adivinar_letra(self, letra: str):
+        # Si el juego ya terminó, no permitimos seguir jugando
+        if self.esta_ganado() or self.esta_perdido():
+            return
+
         self.letras_adivinadas.add(letra)
         # Si la letra ingresada NO está en la palabra secreta, descontamos un intento
         if letra not in self.palabra_secreta:
