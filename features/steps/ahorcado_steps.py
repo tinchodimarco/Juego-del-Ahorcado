@@ -68,3 +68,11 @@ def step_adivinar_todas_las_letras(context):
 def step_ver_boton_reiniciar(context):
     boton = context.page.locator("button.btn-reiniciar")
     expect(boton).to_be_visible()
+
+@then(u'el contador de intentos se mantiene en "{intentos}"')
+def step_impl(context, intentos):
+    assert str(context.juego.intentos) == intentos
+
+@then(u'la letra "{letra}" no se agrega a las letras incorrectas')
+def step_impl(context, letra):
+    assert letra not in context.juego.letras_incorrectas
