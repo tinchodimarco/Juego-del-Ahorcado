@@ -1,9 +1,17 @@
 
+import random
+
+def obtener_palabra_aleatoria(lista_palabras=None):
+    if lista_palabras is None:
+        lista_palabras = ["PYTHON", "FLASK", "AGILE", "TESTING", "AHORCADO"]
+    return random.choice(lista_palabras)
+
 class Ahorcado:
-    def __init__(self, palabra: str, intentos: int = 6):
-        self.palabra_secreta = palabra
+    def __init__(self, palabra: str = None, intentos: int = 6):
+        if palabra is None:
+            palabra = obtener_palabra_aleatoria()
+        self.palabra_secreta = palabra.upper()
         self.intentos = intentos
-        # Conjunto (set) para guardar las letras que el jugador arriesga
         self.letras_adivinadas = set() 
         self.letras_incorrectas = set()
 
@@ -38,3 +46,5 @@ class Ahorcado:
         self.intentos = intentos
         self.letras_adivinadas.clear()
         self.letras_incorrectas.clear()
+
+
