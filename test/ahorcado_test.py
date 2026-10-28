@@ -57,3 +57,15 @@ def test_reiniciar_resetea_intentos_y_letras():
     assert juego.intentos == 6
     assert len(juego.letras_adivinadas) == 0
     assert len(juego.letras_incorrectas) == 0
+
+def test_no_permite_adivinar_letras_cuando_partida_termina():
+    juego = Ahorcado("SOL", intentos=1)
+    juego.adivinar_letra("X")  # Pierde el juego
+    assert juego.esta_perdido() is True
+    
+    intentos_antes = juego.intentos
+    juego.adivinar_letra("S")  # Intenta adivinar de nuevo
+    
+    # Comprobamos que el estado no cambió y no sigue descontando o agregando
+    assert juego.intentos == intentos_antes
+    assert "S" not in juego.letras_adivinadas
