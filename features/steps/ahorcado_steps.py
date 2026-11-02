@@ -84,7 +84,12 @@ def step_ver_palabra_enmascarada(context):
     contenido = context.page.text_content("body")
     assert "_" in contenido
 
-@then('se visualiza el elemento gráfico del ahorcado con "{errores}" errores')
-def step_verificar_dibujo_ahorcado(context, errores):
+@then('se visualiza el elemento gráfico del ahorcado con la estructura inicial')
+def step_verificar_dibujo_inicial(context):
     elemento = context.page.get_by_test_id("ahorcado-dibujo")
-    expect(elemento).to_contain_text(errores) # O validando una clase/atributo específico
+    expect(elemento).to_contain_text("+---+")
+
+@then('se visualiza el elemento gráfico del ahorcado con la cabeza')
+def step_verificar_dibujo_cabeza(context):
+    elemento = context.page.get_by_test_id("ahorcado-dibujo")
+    expect(elemento).to_contain_text("O")
