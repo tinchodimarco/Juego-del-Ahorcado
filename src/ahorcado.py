@@ -54,3 +54,6 @@ class Ahorcado:
         self.letras_adivinadas.clear()
         self.letras_incorrectas.clear()
 
+    def obtener_cantidad_errores(self) -> int:
+        return len(self.letras_incorrectas)
+
