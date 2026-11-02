@@ -85,3 +85,9 @@ def test_juego_se_inicializa_con_palabra_aleatoria_por_defecto(monkeypatch):
      monkeypatch.setattr("src.ahorcado.obtener_palabra_aleatoria", lambda *args: "PYTHON")
      juego = Ahorcado()
      assert juego.palabra_secreta == "PYTHON"
+
+def test_cantidad_errores_retorna_numero_de_incorrectas():
+    juego = Ahorcado("GATO")
+    assert juego.obtener_cantidad_errores() == 0
+    juego.adivinar_letra("Z")
+    assert juego.obtener_cantidad_errores() == 1
