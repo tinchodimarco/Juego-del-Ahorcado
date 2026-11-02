@@ -57,3 +57,60 @@ class Ahorcado:
     def obtener_cantidad_errores(self) -> int:
         return len(self.letras_incorrectas)
 
+    def obtener_dibujo(self) -> str:
+        # Definimos los estados del dibujo del ahorcado (de 0 a 6 errores)
+        estados = [
+            """
+              +---+
+                  |
+                  |
+                  |
+                 ===
+            """,
+            """
+              +---+
+              O   |
+                  |
+                  |
+                 ===
+            """,
+            """
+              +---+
+              O   |
+              |   |
+                  |
+                 ===
+            """,
+            """
+              +---+
+              O   |
+             /|   |
+                  |
+                 ===
+            """,
+            """
+              +---+
+              O   |
+             /|\  |
+                  |
+                 ===
+            """,
+            """
+              +---+
+              O   |
+             /|\  |
+             /    |
+                 ===
+            """,
+            """
+              +---+
+              O   |
+             /|\  |
+             / \  |
+                 ===
+            """
+        ]
+        # Limitamos el índice al máximo de estados disponibles (6 errores)
+        cantidad_errores = min(len(self.letras_incorrectas), len(estados) - 1)
+        return estados[cantidad_errores]
+

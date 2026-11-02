@@ -91,3 +91,15 @@ def test_cantidad_errores_retorna_numero_de_incorrectas():
     assert juego.obtener_cantidad_errores() == 0
     juego.adivinar_letra("Z")
     assert juego.obtener_cantidad_errores() == 1
+
+def test_obtener_dibujo_muestra_estado_inicial_y_con_errores():
+    juego = Ahorcado("GATO")
+    # Estado inicial (0 errores) -> debe mostrar la horca sin el monigote
+    dibujo_inicial = juego.obtener_dibujo()
+    assert "+---+" in dibujo_inicial
+    
+    # Cometemos un error
+    juego.adivinar_letra("Z")
+    dibujo_con_error = juego.obtener_dibujo()
+    # Verificamos que aparece la cabeza 'O' tras el primer error
+    assert "O" in dibujo_con_error
