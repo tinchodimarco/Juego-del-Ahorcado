@@ -65,7 +65,8 @@ def index():
         palabra=palabra_a_mostrar,
         intentos=intentos_a_mostrar,
         letras_incorrectas=letras_erradas,
-        mensaje=mensaje
+        mensaje=mensaje,
+        juego=juego_actual
     )
 
 @app.route("/reiniciar")
