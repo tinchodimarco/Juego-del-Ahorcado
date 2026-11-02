@@ -83,3 +83,8 @@ def step_visualizar_tablero(context):
 def step_ver_palabra_enmascarada(context):
     contenido = context.page.text_content("body")
     assert "_" in contenido
+
+@then('se visualiza el elemento gráfico del ahorcado con "{errores}" errores')
+def step_verificar_dibujo_ahorcado(context, errores):
+    elemento = context.page.get_by_test_id("ahorcado-dibujo")
+    expect(elemento).to_contain_text(errores) # O validando una clase/atributo específico
