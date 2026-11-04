@@ -13,7 +13,7 @@ def obtener_palabra_por_dificultad(dificultad: str = "normal") -> str:
     else:
         # Modo normal: palabras cortas o moderadas (<= 5 o 6 letras)
         palabras = ["GATO", "PERRO", "CASA", "PYTHON", "FLASK"]
-    return random.choice(palabras)
+    return obtener_palabra_aleatoria(palabras)
 
 class Ahorcado:
     def __init__(self, palabra: str = None, intentos: int = 6, dificultad: str = "normal"):
