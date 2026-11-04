@@ -93,3 +93,4 @@ def step_verificar_dibujo_inicial(context):
 def step_verificar_dibujo_cabeza(context):
     elemento = context.page.get_by_test_id("ahorcado-dibujo")
     expect(elemento).to_contain_text("O")
+    

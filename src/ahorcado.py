@@ -6,10 +6,19 @@ def obtener_palabra_aleatoria(lista_palabras=None):
         lista_palabras = ["PYTHON", "FLASK", "AGILE", "TESTING", "AHORCADO"]
     return random.choice(lista_palabras)
 
+def obtener_palabra_por_dificultad(dificultad: str = "normal") -> str:
+    # Definimos listas diferenciadas por longitud de palabra
+    if dificultad == "dificil":
+        palabras = ["PROGRAMACION", "DESARROLLADOR", "ARQUITECTURA", "ALGORITMO"]
+    else:
+        # Modo normal: palabras cortas o moderadas (<= 5 o 6 letras)
+        palabras = ["GATO", "PERRO", "CASA", "PYTHON", "FLASK"]
+    return random.choice(palabras)
+
 class Ahorcado:
-    def __init__(self, palabra: str = None, intentos: int = 6):
+    def __init__(self, palabra: str = None, intentos: int = 6, dificultad: str = "normal"):
         if palabra is None:
-            palabra = obtener_palabra_aleatoria()
+            palabra = obtener_palabra_por_dificultad(dificultad)
         self.palabra_secreta = palabra.upper()
         self.intentos = intentos
         self.letras_adivinadas = set() 

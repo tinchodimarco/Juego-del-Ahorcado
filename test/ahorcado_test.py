@@ -1,5 +1,5 @@
 import pytest
-from src.ahorcado import Ahorcado, obtener_palabra_aleatoria
+from src.ahorcado import Ahorcado, obtener_palabra_por_dificultad, obtener_palabra_aleatoria
 from flask import redirect, url_for
 
 
@@ -103,3 +103,11 @@ def test_obtener_dibujo_muestra_estado_inicial_y_con_errores():
     dibujo_con_error = juego.obtener_dibujo()
     # Verificamos que aparece la cabeza 'O' tras el primer error
     assert "O" in dibujo_con_error
+
+def test_palabra_según_dificultad_normal():
+    juego = Ahorcado(dificultad="normal")
+    assert len(juego.palabra_secreta) <= 5
+
+def test_palabra_según_dificultad_dificil():
+    juego = Ahorcado(dificultad="dificil")
+    assert len(juego.palabra_secreta) > 5
