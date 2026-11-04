@@ -37,6 +37,17 @@
     <pre style="font-family: monospace; font-size: 1.2rem; line-height: 1.2;">{{ juego.obtener_dibujo() }}</pre>
   </div>
 
+
+  <div style="margin-bottom: 15px;" data-testid="selector-dificultad">
+    <p>Dificultad actual: <strong>{{ juego.dificultad }}</strong></p>
+    <a href="/?dificultad=normal">
+        <button type="button" data-testid="btn-normal">Normal</button>
+    </a>
+    <a href="/?dificultad=dificil">
+        <button type="button" data-testid="btn-dificil">Difícil</button>
+    </a>
+</div>
+
 </body>
 
 </html>
