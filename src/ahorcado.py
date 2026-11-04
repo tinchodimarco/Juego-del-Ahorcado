@@ -12,7 +12,7 @@ def obtener_palabra_por_dificultad(dificultad: str = "normal") -> str:
         palabras = ["PROGRAMACION", "DESARROLLADOR", "ARQUITECTURA", "ALGORITMO"]
     else:
         # Modo normal: palabras cortas o moderadas (<= 5 o 6 letras)
-        palabras = ["GATO", "PERRO", "CASA", "PYTHON", "FLASK"]
+        palabras = ["GATO", "PERRO", "CASA", "FLASK"]
     return obtener_palabra_aleatoria(palabras)
 
 class Ahorcado:
