@@ -93,4 +93,26 @@ def step_verificar_dibujo_inicial(context):
 def step_verificar_dibujo_cabeza(context):
     elemento = context.page.get_by_test_id("ahorcado-dibujo")
     expect(elemento).to_contain_text("O")
-    
+
+@given('que selecciono la dificultad "{dificultad}"')
+def step_seleccionar_dificultad(context, dificultad: str):
+    context.dificultad_seleccionada = dificultad
+
+@when('inicio una nueva partida')
+def step_iniciar_partida(context):
+    dificultad = getattr(context, 'dificultad_seleccionada', 'normal')
+    # Navegamos a la app pasando la dificultad por parámetro
+    context.page.goto(f"http://127.0.0.1:5000/?dificultad={dificultad}")
+
+@then('la palabra secreta tiene una longitud corta o moderada')
+def step_verificar_palabra_corta(context):
+    texto = context.page.locator("[data-testid='word']").inner_text()
+    letras = texto.replace(" ", "")
+    assert len(letras) <= 5, f"La palabra '{letras}' es muy larga para el modo normal"
+
+@then('la palabra secreta tiene una longitud mayor')
+def step_verificar_palabra_larga(context):
+    texto = context.page.locator("[data-testid='word']").inner_text()
+    letras = texto.replace(" ", "")
+    assert len(letras) > 5, f"La palabra '{letras}' es muy corta para el modo difícil"
+

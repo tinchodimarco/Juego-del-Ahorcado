@@ -29,14 +29,18 @@ def guardar_juego(juego: Ahorcado) -> None:
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # A supplied word starts a new game; ordinary requests continue this browser's game.
+    # Permitimos recibir la dificultad por parámetro GET (ej: ?dificultad=dificil)
+    dificultad_param = request.args.get("dificultad")
     palabra_inicial = request.args.get("word")
-    if palabra_inicial:
+    
+    if palabra_inicial or dificultad_param:
+        dificultad = dificultad_param if dificultad_param else "normal"
         intentos_iniciales = request.args.get("intentos")
+        
         if intentos_iniciales:
-            juego_actual = Ahorcado(palabra_inicial, intentos=int(intentos_iniciales))
+            juego_actual = Ahorcado(palabra_inicial, intentos=int(intentos_iniciales), dificultad=dificultad)
         else:
-            juego_actual = Ahorcado(palabra_inicial)
+            juego_actual = Ahorcado(palabra_inicial, dificultad=dificultad)
     else:
         juego_actual = cargar_juego()
 
