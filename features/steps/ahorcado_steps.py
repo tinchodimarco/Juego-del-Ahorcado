@@ -59,6 +59,11 @@ def step_ver_boton_reiniciar(context):
     boton = context.page.locator("button.btn-reiniciar")
     expect(boton).to_be_visible()
 
+@then('no veo el botón para reiniciar la partida')
+def step_no_ver_boton_reiniciar(context):
+    boton = context.page.locator("button.btn-reiniciar")
+    expect(boton).to_be_hidden()
+
 @then('el contador de intentos se mantiene en "{intentos}"')
 def step_verificar_intentos_mantenidos(context, intentos):
     elemento = context.page.get_by_test_id("intentos")
