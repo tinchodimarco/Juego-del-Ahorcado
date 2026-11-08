@@ -27,11 +27,13 @@
     <button type="submit" data-testid="adivinar-btn">Adivinar</button>
   </form>
 
+  {% if mensaje %}
   <div class="acciones-fin-juego" style="margin-top: 20px;">
         <form action="/reiniciar" method="get">
             <button type="submit" class="btn-reiniciar">Reiniciar partida</button>
         </form>
     </div>
+    {% endif %}
 
   <div data-testid="ahorcado-dibujo">
     <pre style="font-family: monospace; font-size: 1.2rem; line-height: 1.2;">{{ juego.obtener_dibujo() }}</pre>
