@@ -1,14 +1,22 @@
-# Juego-del-Ahorcado
-Trabajo Práctico del juego del ahorcado basado en la metodologia de trabajo ATDD.
-Historia de usuario 1: Como jugador quiero ver la longitud de la palabra para orientarme
-Criterio de aceptación: debe ver un espacio vacío (guion bajo sería) por cada letra de la palabra.
+# Juego del Ahorcado
+
+Trabajo Práctico de Metodologías Ágiles: ahorcado web hecho con ATDD (Cucumber/Gherkin + Playwright para los AT, pytest para los UT).
+
+- Story Map / tablero: <PEGAR ACÁ EL LINK>
+- Trazabilidad Historia → AT → UT: ver [NOTES.md](NOTES.md)
+- App en producción: <PENDIENTE>
 
 ## Jugar
-
-1. Instala las dependencias con `python -m pip install -r requirements.txt`.
-2. Inicia la aplicación con `python app.py`.
-3. Abre `http://127.0.0.1:5000` en el navegador.
-4. Ingresa una letra por vez. Las letras correctas se revelan; las incorrectas aparecen en la lista y descuentan un intento. Repetir una letra no descuenta otro intento.
-5. Usa **Reiniciar partida** para comenzar con una palabra aleatoria nueva.
+1. Instalá las dependencias: `python -m pip install -r requirements.txt`
+2. Iniciá la aplicación: `python app.py`
+3. Abrí `http://127.0.0.1:5000` en el navegador.
+4. Ingresá una letra por vez. Las correctas se revelan; las incorrectas aparecen en la lista y descuentan un intento. Repetir una letra no descuenta otro intento.
+5. Elegí la dificultad (Normal o Difícil) con los botones de la pantalla.
+6. Al ganar o perder aparece **Reiniciar partida**.
 
 Cada navegador conserva su propia partida.
+
+## Tests
+- Unit tests y cobertura (umbral 90% sobre `src/`): `pytest --cov=src --cov-fail-under=90`
+- Acceptance tests: `playwright install chromium` (una vez) y luego `behave`
+- Los AT de una historia: `behave --tags=@HU-02`

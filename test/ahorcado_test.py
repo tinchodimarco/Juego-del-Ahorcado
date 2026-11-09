@@ -1,6 +1,6 @@
 import pytest
 from src.ahorcado import Ahorcado, obtener_palabra_por_dificultad, obtener_palabra_aleatoria
-from flask import redirect, url_for
+
 
 
 def test_representa_palabra_inicial_con_guiones_bajos():
@@ -74,11 +74,6 @@ def test_obtener_palabra_aleatoria_retorna_una_palabra_valida():
     palabras = ["PYTHON", "FLASK", "AGILE", "TESTING"]
     palabra = obtener_palabra_aleatoria(palabras)
     assert palabra in palabras
-
-def test_juego_se_inicializa_con_palabra_aleatoria_por_defecto(monkeypatch):
-    monkeypatch.setattr("src.ahorcado.obtener_palabra_aleatoria", lambda lista: "PYTHON")
-    juego = Ahorcado()
-    assert juego.palabra_secreta == "PYTHON"
 
 def test_juego_se_inicializa_con_palabra_aleatoria_por_defecto(monkeypatch):
     # Usamos *args para que no importe si se llama con o sin argumentos

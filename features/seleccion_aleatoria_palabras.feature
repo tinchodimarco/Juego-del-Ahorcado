@@ -1,4 +1,5 @@
 # language: es
+@HU-09
 Característica: Selección aleatoria de palabras
   Como jugador de Ahorcado
   Quiero que el sistema seleccione una palabra al azar al iniciar una nueva partida sin especificar parámetros
