@@ -13,7 +13,11 @@ def cargar_juego() -> Ahorcado:
     if datos_juego is None:
         return Ahorcado()
 
-    juego = Ahorcado(datos_juego["palabra"], intentos=datos_juego["intentos"])
+    juego = Ahorcado(
+        datos_juego["palabra"],
+        intentos=datos_juego["intentos"],
+        dificultad=datos_juego.get("dificultad", "normal"),
+    )
     juego.letras_adivinadas = set(datos_juego["letras_adivinadas"])
     juego.letras_incorrectas = set(datos_juego["letras_incorrectas"])
     return juego
@@ -22,6 +26,7 @@ def cargar_juego() -> Ahorcado:
 def guardar_juego(juego: Ahorcado) -> None:
     session["juego"] = {
         "palabra": juego.palabra_secreta,
+        "dificultad": juego.dificultad,
         "intentos": juego.intentos,
         "letras_adivinadas": sorted(juego.letras_adivinadas),
         "letras_incorrectas": sorted(juego.letras_incorrectas),
