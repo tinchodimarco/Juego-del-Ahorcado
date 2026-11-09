@@ -35,3 +35,12 @@ def test_la_dificultad_se_mantiene_despues_de_adivinar_una_letra():
     pagina = cliente.get("/").get_data(as_text=True)
 
     assert "<strong>dificil</strong>" in pagina
+
+def test_reiniciar_mantiene_la_dificultad_elegida():
+    cliente = app.test_client()
+    cliente.get("/?dificultad=dificil")
+
+    cliente.get("/reiniciar")
+    pagina = cliente.get("/").get_data(as_text=True)
+
+    assert "<strong>dificil</strong>" in pagina

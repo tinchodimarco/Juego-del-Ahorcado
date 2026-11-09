@@ -125,3 +125,11 @@ def step_verificar_palabra_larga(context):
 def step_verificar_dificultad_actual(context, dificultad: str):
     elemento = context.page.get_by_test_id("selector-dificultad")
     expect(elemento).to_contain_text(f"Dificultad actual: {dificultad}")
+
+@when('reinicio la partida')
+def step_reiniciar_partida(context):
+    # El botón solo aparece al terminar la partida, y las palabras del modo
+    # difícil cambian, así que no conviene perder a propósito: visitamos
+    # directamente la URL a la que apunta el botón.
+    context.page.goto("http://127.0.0.1:5000/reiniciar")
+    
