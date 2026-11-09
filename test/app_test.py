@@ -26,3 +26,12 @@ def test_repetir_letra_incorrecta_no_descuenta_otro_intento():
 
     assert '<span data-testid="intentos">5</span>' in pagina
     assert '<span data-testid="letras-incorrectas">Z</span>' in pagina
+
+def test_la_dificultad_se_mantiene_despues_de_adivinar_una_letra():
+    cliente = app.test_client()
+    cliente.get("/?dificultad=dificil")
+
+    cliente.post("/", data={"letra": "Z"})
+    pagina = cliente.get("/").get_data(as_text=True)
+
+    assert "<strong>dificil</strong>" in pagina

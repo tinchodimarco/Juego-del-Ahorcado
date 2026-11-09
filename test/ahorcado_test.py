@@ -111,3 +111,7 @@ def test_palabra_según_dificultad_normal():
 def test_palabra_según_dificultad_dificil():
     juego = Ahorcado(dificultad="dificil")
     assert len(juego.palabra_secreta) > 5
+
+def test_juego_guarda_la_dificultad_con_la_que_se_crea():
+    juego = Ahorcado("GATO", dificultad="dificil")
+    assert juego.dificultad == "dificil"
