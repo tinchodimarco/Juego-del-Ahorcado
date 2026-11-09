@@ -121,3 +121,7 @@ def step_verificar_palabra_larga(context):
     letras = texto.replace(" ", "")
     assert len(letras) > 5, f"La palabra '{letras}' es muy corta para el modo difícil"
 
+@then('veo que la dificultad actual es "{dificultad}"')
+def step_verificar_dificultad_actual(context, dificultad: str):
+    elemento = context.page.get_by_test_id("selector-dificultad")
+    expect(elemento).to_contain_text(f"Dificultad actual: {dificultad}")
