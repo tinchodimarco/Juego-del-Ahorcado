@@ -80,7 +80,8 @@ def index():
 
 @app.route("/reiniciar")
 def reiniciar():
-    guardar_juego(Ahorcado())
+    dificultad_actual = cargar_juego().dificultad
+    guardar_juego(Ahorcado(dificultad=dificultad_actual))
     return redirect(url_for('index'))
 
 @app.route("/reset")
