@@ -21,3 +21,10 @@ Característica: Seleccionar dificultad de juego
     Dado que selecciono la dificultad "dificil"
     Cuando inicio una nueva partida
     Entonces veo que la dificultad actual es "dificil"
+
+  
+  Escenario: La dificultad se mantiene después de adivinar una letra
+    Dado que selecciono la dificultad "dificil"
+    Cuando inicio una nueva partida
+    Y ingreso la letra "Z"
+    Entonces veo que la dificultad actual es "dificil"
