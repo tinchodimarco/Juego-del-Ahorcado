@@ -20,6 +20,7 @@ class Ahorcado:
         if palabra is None:
             palabra = obtener_palabra_por_dificultad(dificultad)
         self.palabra_secreta = palabra.upper()
+        self.dificultad = dificultad
         self.intentos = intentos
         self.letras_adivinadas = set() 
         self.letras_incorrectas = set()
