@@ -40,10 +40,10 @@ def index():
     
     if palabra_inicial or dificultad_param:
         dificultad = dificultad_param if dificultad_param else "normal"
-        intentos_iniciales = request.args.get("intentos")
+        intentos_iniciales = request.args.get("intentos", type=int)
         
-        if intentos_iniciales:
-            juego_actual = Ahorcado(palabra_inicial, intentos=int(intentos_iniciales), dificultad=dificultad)
+        if intentos_iniciales is not None:
+            juego_actual = Ahorcado(palabra_inicial, intentos=intentos_iniciales, dificultad=dificultad)
         else:
             juego_actual = Ahorcado(palabra_inicial, dificultad=dificultad)
     else:
