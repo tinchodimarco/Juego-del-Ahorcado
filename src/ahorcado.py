@@ -35,9 +35,10 @@ class Ahorcado:
         if self.esta_ganado() or self.esta_perdido():
             return
 
-        letra = letra.strip().upper()
-        if len(letra) != 1 or not letra.isalpha():
+        if not self.es_letra_valida(letra):
             return
+
+        letra = letra.strip().upper()
 
         if letra in self.letras_adivinadas or letra in self.letras_incorrectas:
             return
