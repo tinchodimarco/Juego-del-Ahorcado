@@ -110,3 +110,12 @@ def test_palabra_según_dificultad_dificil():
 def test_juego_guarda_la_dificultad_con_la_que_se_crea():
     juego = Ahorcado("GATO", dificultad="dificil")
     assert juego.dificultad == "dificil"
+
+@pytest.mark.parametrize("entrada", ["a", "Z", "ñ"])
+def test_es_letra_valida_acepta_una_sola_letra(entrada):
+    assert Ahorcado.es_letra_valida(entrada) is True
+
+
+@pytest.mark.parametrize("entrada", ["1", "?", "ab", "", " "])
+def test_es_letra_valida_rechaza_lo_que_no_es_una_sola_letra(entrada):
+    assert Ahorcado.es_letra_valida(entrada) is False
