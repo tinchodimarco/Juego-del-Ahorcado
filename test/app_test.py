@@ -44,3 +44,11 @@ def test_reiniciar_mantiene_la_dificultad_elegida():
     pagina = cliente.get("/").get_data(as_text=True)
 
     assert "<strong>dificil</strong>" in pagina
+
+def test_intentos_invalido_en_la_url_no_rompe_la_app():
+    cliente = app.test_client()
+
+    respuesta = cliente.get("/?word=GATO&intentos=abc")
+
+    assert respuesta.status_code == 200
+    assert '<span data-testid="intentos">6</span>' in respuesta.get_data(as_text=True)
