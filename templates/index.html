@@ -18,6 +18,10 @@
  <p data-testid="mensaje-estado">{{ mensaje }}</p>
 {% endif %}
 
+  {% if aviso %}
+  <p data-testid="aviso">{{ aviso }}</p>
+  {% endif %}
+
 
   <!-- Formulario para enviar la letra por POST -->
   <form method="POST" action="/">
