@@ -52,3 +52,13 @@ def test_intentos_invalido_en_la_url_no_rompe_la_app():
 
     assert respuesta.status_code == 200
     assert '<span data-testid="intentos">6</span>' in respuesta.get_data(as_text=True)
+
+def test_letra_invalida_deja_un_aviso_en_la_pantalla():
+    cliente = app.test_client()
+    cliente.get("/?word=GATO")
+
+    cliente.post("/", data={"letra": "1"})
+    pagina = cliente.get("/").get_data(as_text=True)
+
+    assert 'data-testid="aviso"' in pagina
+    assert "Ingresá una sola letra" in pagina

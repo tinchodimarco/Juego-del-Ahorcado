@@ -18,12 +18,16 @@
  <p data-testid="mensaje-estado">{{ mensaje }}</p>
 {% endif %}
 
+  {% if aviso %}
+  <p data-testid="aviso">{{ aviso }}</p>
+  {% endif %}
+
 
   <!-- Formulario para enviar la letra por POST -->
   <form method="POST" action="/">
     <label for="letra">Ingresá una letra:</label>
     <input type="text" id="letra" name="letra" data-testid="letra-input"
-      maxlength="1" pattern="[A-Za-zÑñ]" required autocomplete="off" autofocus>
+      maxlength="1" required autocomplete="off" autofocus>
     <button type="submit" data-testid="adivinar-btn">Adivinar</button>
   </form>
 

@@ -53,7 +53,10 @@ def index():
     if request.method == "POST":
         letra_ingresada = request.form.get("letra")
         if letra_ingresada:
-            juego_actual.adivinar_letra(letra_ingresada)
+            if Ahorcado.es_letra_valida(letra_ingresada):
+                juego_actual.adivinar_letra(letra_ingresada)
+            else:
+                session["aviso"] = "Ingresá una sola letra"
         guardar_juego(juego_actual)
         return redirect(url_for('index'))
 
@@ -68,6 +71,7 @@ def index():
         mensaje = "¡Ganaste!"
     elif juego_actual.esta_perdido():
         mensaje = "¡Perdiste!"
+    aviso = session.pop("aviso", None)
 
     return render_template(
         "index.html",
@@ -75,6 +79,7 @@ def index():
         intentos=intentos_a_mostrar,
         letras_incorrectas=letras_erradas,
         mensaje=mensaje,
+        aviso=aviso,
         juego=juego_actual
     )
 

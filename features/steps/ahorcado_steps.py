@@ -132,4 +132,9 @@ def step_reiniciar_partida(context):
     # difícil cambian, así que no conviene perder a propósito: visitamos
     # directamente la URL a la que apunta el botón.
     context.page.goto("http://127.0.0.1:5000/reiniciar")
+
+@then('veo el aviso "{aviso}"')
+def step_ver_aviso(context, aviso):
+    elemento = context.page.get_by_test_id("aviso")
+    expect(elemento).to_have_text(aviso)
     
