@@ -1,0 +1,262 @@
+/* Ahorcado: se juega en una hoja cuadriculada, con birome azul y margen rojo.
+   La hoja ocupa toda la ventana y todo escala con su tamaño. */
+
+:root {
+  --papel: #f6f9fd;
+  --cuadricula: #d5e0ef;
+  --borde: #c3d0e4;
+  --margen: #e0706b;
+  --tinta: #1f3a9c;
+  --tinta-fuerte: #172d7d;
+  --lapiz: #263042;
+  --suave: #55617a;
+  --error: #b3302f;
+  --resaltador: #fff0a0;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --texto: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+  --sangria: clamp(46px, 7vw, 120px);          /* espacio a la izquierda del margen rojo */
+  --control: clamp(52px, 5.4vw, 96px);          /* alto de input y botones */
+  --base: clamp(1rem, 0.9rem + 0.5vw, 1.8rem);  /* tamaño de texto del panel */
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--papel); }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font: 1rem/1.5 var(--texto);
+  color: var(--lapiz);
+}
+
+/* La hoja: cuadrícula de 28px, línea roja de margen, ocupa toda la ventana */
+.hoja {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(20px, 4vh, 48px) var(--sangria) clamp(20px, 3vh, 36px);
+  background-color: var(--papel);
+  background-image:
+    linear-gradient(var(--cuadricula) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cuadricula) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.hoja::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--sangria) - 26px);
+  width: 2px;
+  background: var(--margen);
+}
+
+/* El contenido queda apoyado en el margen rojo, como si se escribiera en la hoja */
+.contenido {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.marca {
+  margin: 0 0 clamp(8px, 2vh, 28px);
+  text-align: center;
+  font-weight: 700;
+  font-size: var(--base);
+  color: var(--tinta);
+}
+
+/* La palabra: lo que se completa a lápiz sobre la hoja */
+.hoja h1[data-testid="word"] {
+  margin: auto 0 clamp(8px, 2vh, 24px); /* el margen automático centra palabra y tablero en vertical */
+  font: 700 clamp(1.8rem, 5.2vw, 5.5rem)/1.25 var(--mono);
+  letter-spacing: 0.03em;
+  color: var(--tinta);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  text-align: center;
+}
+
+.tablero {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: center;
+  gap: 8px clamp(28px, 6vw, 96px);
+  align-items: start;
+  font-size: var(--base);
+}
+
+/* El dibujo llega con ~13 espacios de sangría (la del código fuente):
+   se compensan en "ch" para que quede pegado al borde izquierdo. */
+.dibujo { overflow: hidden; }
+
+.dibujo pre {
+  margin: 0 0 0 -13ch;
+  font: clamp(1.1rem, 2.6vw, 3.4rem)/1.3 var(--mono);
+  color: var(--lapiz);
+}
+
+.panel { min-width: 0; }
+
+.dato {
+  margin: 0 0 4px;
+  color: var(--suave);
+}
+
+.dato span {
+  font-weight: 700;
+  color: var(--tinta);
+}
+
+.dato span[data-testid="letras-incorrectas"] {
+  color: var(--error);
+  letter-spacing: 0.18em;
+}
+
+/* Fin de partida: sello de corrección */
+.sello {
+  display: inline-block;
+  margin: 14px 0 6px;
+  padding: 0.1em 0.6em;
+  font-size: clamp(1.5rem, 2.8vw, 3.2rem);
+  font-weight: 800;
+  border: 3px solid currentColor;
+  border-radius: 6px;
+  transform: rotate(-2deg);
+  animation: sellar 0.18s ease-out;
+}
+
+.sello.gano { color: var(--tinta); }
+.sello.perdio { color: var(--error); }
+
+@keyframes sellar {
+  from { transform: rotate(-6deg) scale(1.25); opacity: 0; }
+  to { transform: rotate(-2deg) scale(1); opacity: 1; }
+}
+
+/* Avisos: resaltador amarillo */
+.aviso {
+  display: inline-block;
+  margin: 12px 0 0;
+  padding: 0.25em 0.6em;
+  background: var(--resaltador);
+  color: var(--lapiz);
+  border-radius: 3px;
+}
+
+.formulario { margin-top: 16px; }
+
+.formulario label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.fila {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+input[name="letra"] {
+  width: var(--control);
+  height: var(--control);
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font: 600 clamp(1.7rem, 2.8vw, 3.2rem)/1 var(--mono);
+  color: var(--tinta-fuerte);
+  background: #fff;
+  border: 2px solid var(--tinta);
+  border-radius: 6px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.fila button,
+.btn-reiniciar {
+  min-height: var(--control);
+  padding: 0 1.4em;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+.fila button {
+  color: #fff;
+  background: var(--tinta);
+  border: 2px solid var(--tinta);
+}
+
+.fila button:hover { background: var(--tinta-fuerte); border-color: var(--tinta-fuerte); }
+
+.acciones-fin-juego { margin-top: 14px; }
+
+.btn-reiniciar {
+  color: var(--tinta);
+  background: #fff;
+  border: 2px solid var(--tinta);
+}
+
+.btn-reiniciar:hover { background: var(--tinta); color: #fff; }
+
+/* Dificultad: control segmentado, siempre al pie de la pantalla */
+.dificultad {
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 2px dashed var(--borde);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--base);
+}
+
+.contenido > .tablero { margin-bottom: auto; }
+
+.dificultad p { margin: 0; color: var(--suave); }
+.dificultad strong { color: var(--lapiz); }
+.opciones { display: flex; }
+.opciones a { display: block; text-decoration: none; }
+
+.opcion {
+  min-height: 44px;
+  padding: 0 1.1em;
+  color: var(--tinta);
+  background: #fff;
+  border: 2px solid var(--tinta);
+}
+
+.opciones a:first-child .opcion { border-radius: 6px 0 0 6px; }
+.opciones a:last-child .opcion { border-radius: 0 6px 6px 0; margin-left: -2px; }
+.opcion:hover { background: #e8eefc; }
+.opcion.activa { color: #fff; background: var(--tinta); }
+
+:focus-visible {
+  outline: 3px solid #6f88e6;
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .hoja::before { left: calc(var(--sangria) - 16px); }
+  .tablero { grid-template-columns: 1fr; justify-items: center; gap: 4px; }
+  .dibujo pre { font-size: 1rem; }
+  .panel { text-align: center; }
+  .fila { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sello { animation: none; }
+}

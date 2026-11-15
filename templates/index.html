@@ -3,58 +3,70 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Juego del Ahorcado</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-  <!-- Acá Flask inyecta la palabra enmascarada -->
-  <h1 data-testid="word">{{ palabra }}</h1>
+  <main class="hoja">
+   <div class="contenido">
+    <p class="marca">Ahorcado</p>
 
-  <!-- Contador de intentos agregados para HU-03 -->
-  <p>Intentos restantes: <span data-testid="intentos">{{ intentos }}</span></p>
-  <p>Letras incorrectas: <span data-testid="letras-incorrectas">{{ letras_incorrectas }}</span></p>
+    <!-- Acá Flask inyecta la palabra enmascarada -->
+    <h1 data-testid="word">{{ palabra }}</h1>
 
-{% if mensaje %}
- <p data-testid="mensaje-estado">{{ mensaje }}</p>
-{% endif %}
+    <div class="tablero">
+      <div class="dibujo" data-testid="ahorcado-dibujo">
+        <pre>{{ juego.obtener_dibujo() }}</pre>
+      </div>
 
-  {% if aviso %}
-  <p data-testid="aviso">{{ aviso }}</p>
-  {% endif %}
+      <div class="panel">
+        <!-- Contador de intentos agregados para HU-03 -->
+        <p class="dato">Intentos restantes: <span data-testid="intentos">{{ intentos }}</span></p>
+        <p class="dato">Letras incorrectas: <span data-testid="letras-incorrectas">{{ letras_incorrectas }}</span></p>
 
+        {% if mensaje %}
+        <p class="sello {{ 'gano' if juego.esta_ganado() else 'perdio' }}" data-testid="mensaje-estado">{{ mensaje }}</p>
+        {% endif %}
 
-  <!-- Formulario para enviar la letra por POST -->
-  <form method="POST" action="/">
-    <label for="letra">Ingresá una letra:</label>
-    <input type="text" id="letra" name="letra" data-testid="letra-input"
-      maxlength="1" required autocomplete="off" autofocus>
-    <button type="submit" data-testid="adivinar-btn">Adivinar</button>
-  </form>
+        {% if aviso %}
+        <p class="aviso" data-testid="aviso">{{ aviso }}</p>
+        {% endif %}
 
-  {% if mensaje %}
-  <div class="acciones-fin-juego" style="margin-top: 20px;">
-        <form action="/reiniciar" method="get">
-            <button type="submit" class="btn-reiniciar">Reiniciar partida</button>
+        <!-- Formulario para enviar la letra por POST -->
+        <form method="POST" action="/" class="formulario">
+          <label for="letra">Ingresá una letra:</label>
+          <div class="fila">
+            <input type="text" id="letra" name="letra" data-testid="letra-input"
+              maxlength="1" required autocomplete="off" autofocus>
+            <button type="submit" data-testid="adivinar-btn">Adivinar</button>
+          </div>
         </form>
+
+        {% if mensaje %}
+        <div class="acciones-fin-juego">
+          <form action="/reiniciar" method="get">
+            <button type="submit" class="btn-reiniciar">Reiniciar partida</button>
+          </form>
+        </div>
+        {% endif %}
+      </div>
     </div>
-    {% endif %}
 
-  <div data-testid="ahorcado-dibujo">
-    <pre style="font-family: monospace; font-size: 1.2rem; line-height: 1.2;">{{ juego.obtener_dibujo() }}</pre>
-  </div>
-
-
-  <div style="margin-bottom: 15px;" data-testid="selector-dificultad">
-    <p>Dificultad actual: <strong>{{ juego.dificultad }}</strong></p>
-    <a href="/?dificultad=normal">
-        <button type="button" data-testid="btn-normal">Normal</button>
-    </a>
-    <a href="/?dificultad=dificil">
-        <button type="button" data-testid="btn-dificil">Difícil</button>
-    </a>
-</div>
-
+    <div class="dificultad" data-testid="selector-dificultad">
+      <p>Dificultad actual: <strong>{{ juego.dificultad }}</strong></p>
+      <div class="opciones">
+        <a href="/?dificultad=normal">
+          <button type="button" class="opcion {{ 'activa' if juego.dificultad == 'normal' }}" data-testid="btn-normal">Normal</button>
+        </a>
+        <a href="/?dificultad=dificil">
+          <button type="button" class="opcion {{ 'activa' if juego.dificultad == 'dificil' }}" data-testid="btn-dificil">Difícil</button>
+        </a>
+      </div>
+    </div>
+   </div>
+  </main>
 </body>
 
 </html>
-
