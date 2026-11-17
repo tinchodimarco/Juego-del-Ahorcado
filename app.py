@@ -4,7 +4,7 @@ import secrets
 from flask import Flask, redirect, render_template, request, session, url_for
 from src.ahorcado import Ahorcado
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="public", static_url_path="")
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY") or secrets.token_hex(32)
 
 
