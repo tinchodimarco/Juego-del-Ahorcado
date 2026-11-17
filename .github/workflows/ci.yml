@@ -83,7 +83,7 @@ jobs:
   deploy:
     name: 6 - Deploy
     needs: acceptance-tests
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && github.repository == 'Martinvivas/ahorcado'
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
