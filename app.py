@@ -94,5 +94,5 @@ def reset():
     session.clear()
     return "", 200
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover 
     app.run(debug=os.environ.get("FLASK_DEBUG") == "1")
